@@ -30,6 +30,24 @@ def search_photos(user, event, default='exe'):
         vkbot_photo.send_photos_to_user(person_photos, event)
 
 
+def contacts(user, event, default='exe'):
+    vk_sessionGroup.method('messages.send', {'user_id': user['user_id'],
+                                             'message': config.get('chat').get('student').get('objects').get('contacts'),
+                                             'random_id': 0})
+
+
+def events(user, event, default='exe'):
+    vk_sessionGroup.method('messages.send', {'user_id': user['user_id'],
+                                             'message': config.get('chat').get('student').get('objects').get('events'),
+                                             'random_id': 0})
+
+
+def timetable(user, event, default='exe'):
+    vk_sessionGroup.method('messages.send', {'user_id': user['user_id'],
+                                             'message': config.get('chat').get('student').get('objects').get('timetable'),
+                                             'random_id': 0})
+
+
 def instruction_pp(user, event, default='exe'):
     vk_sessionGroup.method('messages.send', {'user_id': user['user_id'],
                                              'message': config.get('chat').get('fresher').get('objects').get('ipp'),
@@ -166,6 +184,9 @@ allfuncs = {'start': start,
             'articles': articles,
             'instruction_pp': instruction_pp,
             'notes': notes,
+            'timetable': timetable,
+            'events': events,
+            'contacts': contacts,
             'search_photos': search_photos,
             'come_back': come_back,
             }
