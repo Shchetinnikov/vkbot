@@ -3,10 +3,10 @@ import uuid
 
 import requests
 
-import mongo_db as mdb
+from db import mongo_db as mdb
 from haara_recognition import get_faces, compare_faces
-from vkbot_auth import config, id_group, vk_sessionUser, vk_sessionGroup, upload
-from user_exceptions import *
+from events.vkbot_auth import config, id_group, vk_sessionUser, vk_sessionGroup, upload
+from exceptions.user_exceptions import *
 
 
 # Скачивает изображение, генерирует уникальное имя

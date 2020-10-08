@@ -1,13 +1,12 @@
-from vkbot_auth import config, vk_sessionGroup
+from events.vkbot_auth import config, vk_sessionGroup
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
-from user_exceptions import *
 
 
 # Функция, создает интерактивные кнопки в диалоге
 def Create_board(state):
     # keyboard = VkKeyboard(one_time=True, inline=True)
     chat = 'chat'
-    keyboard = VkKeyboard(inline=True)
+    keyboard = VkKeyboard(one_time=False)
     # if text == 'закрыть клавиатуру' or text == 'item5':
     #     return keyboard.get_empty_keyboard()
     if state == 'start':

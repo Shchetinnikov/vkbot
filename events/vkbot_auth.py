@@ -3,14 +3,14 @@ from vk_api.bot_longpoll import VkBotLongPoll
 from read_json import get_json
 
 
-config = get_json('config')
-__credentials = get_json('credentials')
+config = get_json('config\\config')
+__credentials = get_json('config\\credentials')
 
-id_group = get_json('credentials').get('group').get('id_group')
+id_group = __credentials.get('group').get('id_group')
 
 # Сессия от имени администратора
-__login = get_json('credentials').get('user').get('login')
-__password = get_json('credentials').get('user').get('password')
+__login = __credentials.get('user').get('login')
+__password = __credentials.get('user').get('password')
 vk_sessionUser = vk_api.VkApi(__login, __password)
 vk_sessionUser.auth()
 

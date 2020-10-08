@@ -1,10 +1,8 @@
 import os
-from time import time
 
 from vk_api.bot_longpoll import VkBotEventType
-import vkbot_chat
-import vkbot_photo
-from vkbot_auth import longpoll
+from events import vkbot_chat, vkbot_photo
+from events.vkbot_auth import longpoll
 
 
 if __name__ == '__main__':

@@ -1,11 +1,11 @@
 from pymongo import MongoClient
-from vkbot_auth import vk_sessionGroup, id_group
+from events.vkbot_auth import vk_sessionGroup, id_group
 from read_json import get_json
 from bson.binary import Binary
 import pickle
 
-__host = get_json('credentials').get('mongo_client').get('host')
-__port = get_json('credentials').get('mongo_client').get('port')
+__host = get_json('config\\credentials').get('mongo_client').get('host')
+__port = get_json('config\\credentials').get('mongo_client').get('port')
 __client = MongoClient(__host, __port)
 
 albums = __client[f'public{id_group}']['album_photos']
@@ -14,6 +14,7 @@ users = __client[f'public{id_group}']['users']
 
 def clean_collection(collection):
     collection.delete_many({})
+
 
 def set_user_state(collection, user, state):
     user_id = user['user_id']

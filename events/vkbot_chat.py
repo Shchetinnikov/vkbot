@@ -1,6 +1,7 @@
 import random
 
-from ifunctions import *
+from events.interface.ifunctions import *
+from events.interface.ifunctions import allfuncs
 
 '''
 def text_processing(user, event):
@@ -399,7 +400,7 @@ def check_user(event):
 
     # Добавление пользователя в базу, в случае отсутствия
     if not check:
-        mdb.insert_user(mdb.users, event)
+        mdb.insert_user(event)
         return mdb.users.find_one({'user_id': user_id})
     else:
         return check

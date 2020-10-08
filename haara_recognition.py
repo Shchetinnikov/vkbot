@@ -1,6 +1,6 @@
 import numpy as np
 from PIL import Image
-import cv2, os
+import cv2
 import face_recognition
 from read_json import get_json
 
@@ -9,8 +9,8 @@ cascadePath = 'haarcascade_frontalface_default.xml'
 faceCascade = cv2.CascadeClassifier(cascadePath)
 recognizer = cv2.face.LBPHFaceRecognizer_create(1, 8, 8, 8, 123)
 
-config = get_json('config')
-id_group = get_json('credentials').get('group').get('id_group')
+config = get_json('config\\config')
+id_group = get_json('config\\credentials').get('group').get('id_group')
 
 MAX_DISTANCE = 0.6
 
