@@ -20,7 +20,7 @@ def search_photos(user, event, default='exe'):
         vk_sessionGroup.method('messages.send', {'user_id': user['user_id'],
                                                  'message': 'Образец:', 'random_id': 0,
                                                  'attachment': ','.join(attachments)})
-        mdb.set_user_state(user, command)
+        mdb.set_user_state(mdb.users, user, command)
 
     elif default == 'agent':
         if event.object['message']['text'] and len(event.object['message']['attachments']) == 0:
@@ -96,13 +96,13 @@ def ask_admin(user, event, default='exe'):
         vk_sessionGroup.method('messages.send', {'user_id': user['user_id'],
                                                  'message': config.get('chat').get('ask_admin').get('intro'),
                                                  'random_id': 0, 'keyboard': 0})
-        mdb.set_user_state(user, command)
+        mdb.set_user_state(mdb.users, user, command)
     elif default == 'agent':
         command = config.get('chat').get('ask_admin').get('parent')
         vk_sessionGroup.method('messages.markAsAnsweredConversation',
                                {'peer_id': -user['user_id'], 'answered': 0,
                                 'group_id': id_group})
-        mdb.set_user_state(user, command)
+        mdb.set_user_state(mdb.users, user, command)
 
 
 def ability(user, event, default='exe'):
@@ -110,7 +110,7 @@ def ability(user, event, default='exe'):
 
     if default == 'exe':
         interface.print_menu(user, command)
-        mdb.set_user_state(user, command)
+        mdb.set_user_state(mdb.users, user, command)
     elif default == 'agent':
         text = event.object['message']['text']
         command = config.get('chat').get('ability').get('intents').get(text)
@@ -122,7 +122,7 @@ def student(user, event, default='exe'):
 
     if default == 'exe':
         interface.print_menu(user, command)
-        mdb.set_user_state(user, command)
+        mdb.set_user_state(mdb.users, user, command)
     elif default == 'agent':
         text = event.object['message']['text']
         command = config.get('chat').get('student').get('intents').get(text)
@@ -134,7 +134,7 @@ def fresher(user, event, default='exe'):
 
     if default == 'exe':
         interface.print_menu(user, command)
-        mdb.set_user_state(user, command)
+        mdb.set_user_state(mdb.users, user, command)
     elif default == 'agent':
         text = event.object['message']['text']
         command = config.get('chat').get('fresher').get('intents').get(text)
@@ -146,7 +146,7 @@ def abitur(user, event, default='exe'):
 
     if default == 'exe':
         interface.print_menu(user, command)
-        mdb.set_user_state(user, command)
+        mdb.set_user_state(mdb.users, user, command)
     elif default == 'agent':
         text = event.object['message']['text']
         command = config.get('chat').get('abitur').get('intents').get(text)
@@ -158,7 +158,7 @@ def start(user, event, default='exe'):
 
     if default == 'exe':
         interface.print_menu(user, command)
-        mdb.set_user_state(user, command)
+        mdb.set_user_state(mdb.users, user, command)
     elif default == 'agent':
         text = event.object['message']['text']
         command = config.get('chat').get('start').get('intents').get(text)

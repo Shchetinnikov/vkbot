@@ -30,7 +30,6 @@ def set_user_state(collection, user, state):
                           })
 
 
-
 def insert_user(collection, event):
     user_id = event.object['message']['from_id']
     user = vk_sessionGroup.method("users.get", {'user_ids': user_id})

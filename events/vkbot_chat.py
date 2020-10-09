@@ -400,7 +400,7 @@ def check_user(event):
 
     # Добавление пользователя в базу, в случае отсутствия
     if not check:
-        mdb.insert_user(event)
+        mdb.insert_user(mdb.users, event)
         return mdb.users.find_one({'user_id': user_id})
     else:
         return check
