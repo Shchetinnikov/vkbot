@@ -1,48 +1,41 @@
 import os
-from datetime import time
+from time import sleep
+from timer.time_tools import timer_start, time
+from _datetime import datetime
 import requests
 import urllib3
 import socket
 
-
 from vk_api.bot_longpoll import VkBotEventType
-from events import vkbot_chat, vkbot_photo
 from events.vkbot_auth import longpoll
+from events import vkbot_chat, vkbot_db
 
 if __name__ == '__main__':
-    print("Starting the program: ", os.path.basename(__file__))
+    print("Running the program: ", os.path.basename(__file__), end='\n\n')
 
-    # timer_start = time()
+    # Обновление базы данных фотографий сообщества
+    vkbot_db.update_data()
+
     while True:
         try:
-
-            # Обновление базы данных фотографий сообщества
-            vkbot_photo.update_database()
-
-            """
-                if vkbot_photo.ControlAlbumPhotos() == 'Incomplete database':
-                elif vkbot_photo.ControlAlbumPhotos() == 'Empty database':
-                    vkbot_photo.GetAllAlbumPhotos()
-            """
-
+            photo_counter = 0
             for event in longpoll.listen():
 
                 # Обработка сообщений пользователей
                 if event.type == VkBotEventType.MESSAGE_NEW:
                     vkbot_chat.message_processing(event)
 
-                # Сохранение новых фотографий в альбомах сообществаL
-                elif event.type == VkBotEventType.PHOTO_NEW:
-                    vkbot_photo.get_new_photos(event)
-
-                """
-                    # Еженедельное обновление базы данных
-                    elif (time() - timer_start) / (3600 * 24) >= 7:
-                        break
+                # Обновление базы данных
+                if event.type == VkBotEventType.PHOTO_NEW:
+                    photo_counter += 1
+                    if photo_counter >= 20:
+                        timer_start = time()
+                        vkbot_db.update_data()
+                        photo_counter = 0
+                elif (time() - timer_start) / 3600 >= 1:
+                    timer_start = time()
+                    vkbot_db.update_data()
     
-                    #Сохранение фотографий с нового поста сообщества
-                    if event.type == VkBotEventType.WALL_POST_NEW:
-                        VkBot_photos.getWallPhoto(event)
-                """
-        except (requests.exceptions.ReadTimeout, urllib3.exceptions.ReadTimeoutError, socket.timeout) as error:
-            print("Error time: ", time(), ", Message: ", error)
+        except (requests.exceptions.ReadTimeout, urllib3.exceptions.ReadTimeoutError, socket.timeout,
+                ConnectionResetError, urllib3.exceptions.ProtocolError, requests.exceptions.ConnectionError) as error:
+            print("Error time: ", datetime.now(), ", Message: ", error)

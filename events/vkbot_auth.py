@@ -2,7 +2,6 @@ import vk_api
 from vk_api.bot_longpoll import VkBotLongPoll
 from read_json import get_json
 
-
 config = get_json('config\\config')
 __credentials = get_json('config\\credentials')
 
